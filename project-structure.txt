@@ -1,0 +1,33 @@
+Potential structure
+
+kryptos/
+├── src/
+│   ├── app.ts            # Application entry point
+│   ├── request/
+│   │   ├── handlers/     # Request handlers
+│   │   ├── middleware/   # Middleware for authentication, logging, etc.
+│   │   └── routes/       # API route definitions
+│   ├── data/
+│   │   ├── databaseConnections.ts   # Database connection
+│   │   └── databaseModels.ts        # Schemas
+│   ├── utils/            # Reusable functions
+│   │   └── errorHandler.ts
+│   └── services/         # Service modules
+│       ├── bots/
+│       │   ├── twitter/  # Twitter bot related code
+│       │   ├── discord/  # Discord bot related code
+│       │   └── telegram/ # Telegram bot related code
+│       ├── whale/
+│       │   ├── protocolWhales.ts  # Scrape whales by list of or individual protocol
+│       │   └── whaleHoldings.ts    # Scrape whale holdings
+│       └── structs/        # Service module's structs
+│           ├── botStructs.ts      # Structs related to bots
+│           └── whaleStructs.ts    # Structs related to whale services
+├── scripts/              # Deployment scripts
+├── tests/                # Unit and integration tests
+├── config/               # Configuration directory
+│   └── apiEndpoints.json # Configuration file with API endpoints
+├── .gitignore
+├── package.json
+├── tsconfig.json
+└── README.md
