@@ -1,5 +1,5 @@
 export const solscanAPI = {
-  tokenHolder: "https://public-api.solscan.io/token/holders?",
+  tokenHolder: "https://public-api.solscan.io/token/holdrs?",
   accountTokens: "https://public-api.solscan.io/account/tokens?",
 };
 

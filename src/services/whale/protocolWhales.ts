@@ -3,6 +3,13 @@ import { Whale } from "../../models/whaleModels";
 import { defiAddress, solscanAPI } from "./constants";
 import { getRequest } from "../../utils/httpMethods";
 
+import { handleError } from "../../utils/handleError";
+
+interface getWhalesByProtocolResponse {
+  data: Whale[];
+  total: number;
+}
+
 export async function getWhalesByProtocol(protocol: string): Promise<Whale[]> {
   let whales: Whale[] = [];
   try {
@@ -19,9 +26,14 @@ export async function getWhalesByProtocol(protocol: string): Promise<Whale[]> {
       offset: 0,
     };
 
-    whales = await getRequest(solscanAPI.tokenHolder, params);
-  } catch (error) {
-    console.log(error);
+    let response: getWhalesByProtocolResponse = await getRequest(
+      solscanAPI.tokenHolder,
+      params
+    );
+
+    whales = response.data;
+  } catch (error: any) {
+    throw error;
   }
 
   return whales;

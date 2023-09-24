@@ -15,21 +15,7 @@ export async function getRequest<T>(
 
     return response.data;
   } catch (error: any) {
-    // Handle the error if the request failed
-    if (axios.isAxiosError(error)) {
-      // AxiosError includes detailed error information
-      const axiosError: AxiosError = error;
-      console.error("HTTP GET request failed:", axiosError.message);
-      // You can also access response status and headers from axiosError.response
-
-      // Rethrow the error to let the caller handle it
-      throw axiosError;
-    } else {
-      // Handle non-Axios errors (e.g., network issues)
-      console.error("An error occurred:", error.message);
-
-      // Rethrow the error to let the caller handle it
-      throw error;
-    }
+    console.log(error.stack);
+    throw error;
   }
 }

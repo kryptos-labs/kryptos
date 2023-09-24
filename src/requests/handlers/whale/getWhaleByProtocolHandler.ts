@@ -13,12 +13,10 @@ export default function (req: Request, res: Response): void {
       })
       .catch((error) => {
         res.status(400).json({
-          error: "error",
+          error: error,
         });
       });
   } catch (error) {
-    // Handle errors
-    console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 }
