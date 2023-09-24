@@ -10,12 +10,6 @@ export async function getRequest<T>(
   api: string,
   params?: Record<string, any>
 ): Promise<T> {
-  try {
-    const response: AxiosResponse<T> = await axios.get(api, { params });
-
-    return response.data;
-  } catch (error: any) {
-    console.log(error.stack);
-    throw error;
-  }
+  const response: AxiosResponse<T> = await axios.get(api, { params });
+  return response.data;
 }

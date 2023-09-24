@@ -12,29 +12,25 @@ interface getWhalesByProtocolResponse {
 
 export async function getWhalesByProtocol(protocol: string): Promise<Whale[]> {
   let whales: Whale[] = [];
-  try {
-    console.log(protocol);
-    let protocolAddress = defiAddress.get(protocol);
 
-    if (protocolAddress === undefined) {
-      throw new Error("Protocol address not found");
-    }
+  let protocolAddress = defiAddress.get(protocol);
 
-    let params: Record<string, any> = {
-      tokenAddress: protocolAddress,
-      limit: 5,
-      offset: 0,
-    };
-
-    let response: getWhalesByProtocolResponse = await getRequest(
-      solscanAPI.tokenHolder,
-      params
-    );
-
-    whales = response.data;
-  } catch (error: any) {
-    throw error;
+  if (protocolAddress === undefined) {
+    throw new Error("Protocol address not found");
   }
+
+  let params: Record<string, any> = {
+    tokenAddress: protocolAddress,
+    limit: 5,
+    offset: 0,
+  };
+
+  let response: getWhalesByProtocolResponse = await getRequest(
+    solscanAPI.tokenHolder,
+    params
+  );
+
+  whales = response.data;
 
   return whales;
 }
