@@ -25,12 +25,15 @@ export async function getWhalesByProtocol(protocol: string): Promise<Whale[]> {
     offset: 0,
   };
 
-  let response: getWhalesByProtocolResponse = await getRequest(
-    solscanAPI.tokenHolder,
-    params
-  );
-
-  whales = response.data;
+  try {
+    let response: getWhalesByProtocolResponse = await getRequest(
+      solscanAPI.tokenHolder,
+      params
+    );
+    whales = response.data;
+  } catch (error: any) {
+    handleError(error);
+  }
 
   return whales;
 }

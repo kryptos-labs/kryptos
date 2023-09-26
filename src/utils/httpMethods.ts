@@ -1,4 +1,5 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
+import { handleError } from "./handleError";
 
 /**
  * Reusable HTTP GET function.
@@ -10,6 +11,12 @@ export async function getRequest<T>(
   api: string,
   params?: Record<string, any>
 ): Promise<T> {
-  const response: AxiosResponse<T> = await axios.get(api, { params });
-  return response.data;
+  try {
+    const response: AxiosResponse<T> = await axios.get(api, { params });
+    return response.data;
+  } catch (error: any) {
+    // handleError(new Error("Error in getRequest function"));
+    throw new Error(`Error from getRequest function for ${api}`);
+  }
+  return {} as T;
 }

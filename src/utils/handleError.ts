@@ -12,56 +12,43 @@ export class CustomError extends Error {
 }
 
 export function handleError(error: Error): void {
-  try {
+  if (error instanceof CustomError) {
     throw error;
-  } catch (e: any) {
-    if (e instanceof CustomError) {
-      console.error(
-        `Custom Error: ${e.message}, File: ${e.fileName}, Line: ${e.lineNumber}`
-      );
-      // Handle the error response as needed
-    } else {
-      throw new CustomError(
-        e.message,
-        getCurrentFileName(),
-        getCurrentLineNumber()
-      );
-    }
+    // Handle the error response as needed
+  } else {
+    throw new CustomError(
+      error.message,
+      getCurrentFileName(error),
+      getCurrentLineNumber(error)
+    );
   }
 }
 
-function getCurrentFileName(): string {
-  try {
-    throw new Error();
-  } catch (error: any) {
-    const stackLines = error.stack?.split("\n");
-    if (stackLines && stackLines.length >= 4) {
-      // Extract the file from the stack trace
-      const callerLine = stackLines[3].trim();
-      const match = /\((.*?):(\d+):\d+\)/.exec(callerLine);
-      if (match && match.length === 3) {
-        const [, file] = match;
-        return file;
-      }
+function getCurrentFileName(error: any): string {
+  const stackLines = error.stack?.split("\n");
+  if (stackLines && stackLines.length >= 4) {
+    // Extract the file from the stack trace
+    const callerLine = stackLines[3].trim();
+    const match = /\((.*?):(\d+):\d+\)/.exec(callerLine);
+    if (match && match.length === 3) {
+      const [, file] = match;
+      return file;
     }
   }
   return "File information not available";
 }
 
-function getCurrentLineNumber(): number {
-  try {
-    throw new Error();
-  } catch (error: any) {
-    const stackLines = error.stack?.split("\n");
-    if (stackLines && stackLines.length >= 4) {
-      // Extract the line number from the stack trace
-      const callerLine = stackLines[3].trim();
-      const match = /\((.*?):(\d+):\d+\)/.exec(callerLine);
-      if (match && match.length === 3) {
-        const [, , line] = match;
-        return parseInt(line, 10);
-      }
-    }
-  }
-  return -1; // Line number information not available
+function getCurrentLineNumber(error: any): number {
+  const stackLines = error.stack?.split("\n");
+  // if (stackLines && stackLines.length >= 4) {
+  //   // Extract the line number from the stack trace
+  //   const callerLine = stackLines[3].trim();
+  //   const match = /\((.*?):(\d+):\d+\)/.exec(callerLine);
+  //   if (match && match.length === 3) {
+  //     const [, , line] = match;
+  //     return parseInt(line, 10);
+  //   }
+  // }
+
+  const lineOfError = stackLines[0];
 }

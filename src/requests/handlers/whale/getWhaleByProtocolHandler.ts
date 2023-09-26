@@ -13,7 +13,7 @@ export default function (req: Request, res: Response): void {
       })
       .catch((error) => {
         res.status(400).json({
-          error: error,
+          error: error.fileName + " " + error.lineNumber + " " + error.message,
         });
       });
   } catch (error) {
