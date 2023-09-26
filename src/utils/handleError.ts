@@ -1,5 +1,5 @@
 export class CustomError extends Error {
-  constructor(message: string, fileName: string, lineNumber: number) {
+  constructor(message: string, fileName: string, lineNumber: string) {
     super(message);
     this.name = "CustomError";
     this.fileName = fileName;
@@ -8,7 +8,7 @@ export class CustomError extends Error {
 
   // Additional properties to store file and line information
   fileName: string;
-  lineNumber: number;
+  lineNumber: string;
 }
 
 export function handleError(error: Error): void {
@@ -38,17 +38,15 @@ function getCurrentFileName(error: any): string {
   return "File information not available";
 }
 
-function getCurrentLineNumber(error: any): number {
-  const stackLines = error.stack?.split("\n");
-  // if (stackLines && stackLines.length >= 4) {
-  //   // Extract the line number from the stack trace
-  //   const callerLine = stackLines[3].trim();
-  //   const match = /\((.*?):(\d+):\d+\)/.exec(callerLine);
-  //   if (match && match.length === 3) {
-  //     const [, , line] = match;
-  //     return parseInt(line, 10);
-  //   }
-  // }
+function getCurrentLineNumber(error: any): string {
+  if (error instanceof Error) {
+    const stackLines = error.stack?.split("\n");
+    let stackLine: string = "-1";
+    if (stackLines && stackLines.length >= 2) {
+      // The second line of the stack trace typically contains the file name and line number
+      stackLine = stackLines[1].trim();
+    }
 
-  const lineOfError = stackLines[0];
+    return stackLine;
+  } else return "-1";
 }
