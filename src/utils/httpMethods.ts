@@ -16,7 +16,9 @@ export async function getRequest<T>(
     return response.data;
   } catch (error: any) {
     // handleError(new Error("Error in getRequest function"));
+    console.log(error);
     throw new Error(`Error from getRequest function for ${api}`);
   }
+
   return {} as T;
 }

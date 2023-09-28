@@ -16,7 +16,7 @@ export async function getWhalesByProtocol(protocol: string): Promise<Whale[]> {
   let protocolAddress = defiAddress.get(protocol);
 
   if (protocolAddress === undefined) {
-    throw new Error("Protocol address not found");
+    handleError(new Error("Protocol address not found"));
   }
 
   let params: Record<string, any> = {
@@ -32,7 +32,7 @@ export async function getWhalesByProtocol(protocol: string): Promise<Whale[]> {
     );
     whales = response.data;
   } catch (error: any) {
-    handleError(error);
+    handleError(new Error(error.message));
   }
 
   return whales;
