@@ -1,6 +1,7 @@
 import { error } from "console";
 import { Whale } from "../../models/whaleModels";
-import { defiAddress, solscanAPI } from "./constants";
+import { defiAddress } from "../../constants/protocols";
+import { solscanAPI } from "../../constants/dataEndpoints";
 import { getRequest } from "../../utils/httpMethods";
 
 import { handleError } from "../../utils/handleError";
@@ -13,7 +14,7 @@ interface getWhalesByProtocolResponse {
 export async function getWhalesByProtocol(protocol: string): Promise<Whale[]> {
   let whales: Whale[] = [];
 
-  let protocolAddress = defiAddress.get(protocol);
+  let protocolAddress = defiAddress[protocol].address;
 
   if (protocolAddress === undefined) {
     handleError(new Error("Protocol address not found"));
