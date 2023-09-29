@@ -6,6 +6,7 @@ import { getRequest } from "../../utils/httpMethods";
 
 import { handleError } from "../../utils/handleError";
 import { tokenTotalSupply } from "./metrics";
+import { alchemy } from "../../api/alchemy";
 
 interface getWhalesByProtocolResponse {
   data: Whale[];
@@ -28,8 +29,6 @@ export async function getWhalesByProtocol(protocol: string): Promise<Whale[]> {
   };
 
   try {
-    tokenTotalSupply(protocolAddress);
-
     let response: getWhalesByProtocolResponse = await getRequest(
       solscanAPI.tokenHolder,
       params
