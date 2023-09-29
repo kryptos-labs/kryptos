@@ -12,5 +12,6 @@
     "isolatedModules": true,
     "jsx": "react"
   },
+  "types": ["@solana/web3.js"],
   "include": ["src/**/*.ts"]
 }
