@@ -1,41 +1,29 @@
-import { error } from "console";
 import { Whale } from "../../models/whaleModels";
 import { defiAddress } from "../../constants/protocols";
-import { solscanAPI } from "../../constants/dataEndpoints";
-import { getRequest } from "../../utils/httpMethods";
-
+import { getLargestHolders, TokenHolders } from "../../api/solscan";
 import { handleError } from "../../utils/handleError";
 import { tokenTotalSupply } from "./metrics";
-import { alchemy } from "../../api/alchemy";
-
-interface getWhalesByProtocolResponse {
-  data: Whale[];
-  total: number;
-}
+import { Token } from "typescript";
 
 export async function getWhalesByProtocol(protocol: string): Promise<Whale[]> {
   let whales: Whale[] = [];
 
-  let protocolAddress = defiAddress[protocol].address;
+  const limit = 5;
+  const offset = 0;
 
-  if (protocolAddress === undefined) {
+  let address = defiAddress[protocol].address;
+
+  if (address === undefined) {
     handleError(new Error("Protocol address not found"));
   }
-
-  let params: Record<string, any> = {
-    tokenAddress: protocolAddress,
-    limit: 5,
-    offset: 0,
-  };
-
   try {
-    let response: getWhalesByProtocolResponse = await getRequest(
-      solscanAPI.tokenHolder,
-      params
+    let largestHolders: TokenHolders[] = await getLargestHolders(
+      address,
+      limit,
+      offset
     );
-    whales = response.data;
-  } catch (error: any) {
-    handleError(new Error(error.message));
+  } catch (error) {
+    handleError(error);
   }
 
   return whales;

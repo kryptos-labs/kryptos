@@ -11,7 +11,7 @@ export class CustomError extends Error {
   lineNumber: string;
 }
 
-export function handleError(error: Error): void {
+export function handleError(error: any): void {
   if (error instanceof CustomError) {
     throw error;
     // Handle the error response as needed
