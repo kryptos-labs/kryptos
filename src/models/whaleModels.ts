@@ -1,8 +1,8 @@
 interface Whale {
-  address: string;
+  protocolAddress: string;
   amount: number;
-  owner: string;
-  Tokens: string;
+
+  tokenHeld: string;
 }
 
 interface TokenHeld {

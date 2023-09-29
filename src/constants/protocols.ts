@@ -1,7 +1,7 @@
 import { Protocol } from "../models/whaleModels";
 
 export const ProtocolInfo: Record<string, Protocol> = {
-  SLDN: {
+  SLND: {
     name: "Solend",
     address: "SLNDpmoWTVADgEdndyvWzroNL7zSi1dF9PC3xHGtPwp",
     type: ["Lending/Borrowing"],
