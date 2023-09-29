@@ -1,9 +1,8 @@
 interface Whale {
   address: string;
   amount: number;
-  decimals: number;
   owner: string;
-  rank: number;
+  Tokens: string;
 }
 
 interface TokenHeld {
