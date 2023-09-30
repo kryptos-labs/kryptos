@@ -31,7 +31,7 @@ interface LargestHoldersResponse {
   total: number;
 }
 
-interface TokenMeta {
+export interface TokenMeta {
   name: string;
   symbol: string;
   price: number;
@@ -76,17 +76,21 @@ export async function getLargestHolders(
   return largestHolders;
 }
 
-export async function getTokenMeta(address: string): Promise<TokenMeta> {
+export async function getTokenMeta(
+  address: string
+): Promise<TokenMeta | undefined> {
   let params: Record<string, any> = {
     tokenAddress: address,
   };
 
+  let tokenMeta: TokenMeta | undefined = undefined;
+
   try {
-    return await getRequest(solscanAPI.tokenMeta, params);
+    tokenMeta = await getRequest(solscanAPI.tokenMeta, params);
   } catch (error: any) {
     handleError(error);
-    throw error;
   }
+  return tokenMeta;
 }
 
 export async function getAccountTokens(owner: string): Promise<AccountToken[]> {

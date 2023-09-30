@@ -1,3 +1,11 @@
+type Symbol = string;
+
+// interface DefiWhales {
+//   symbol: Symbol;
+//   name: string;
+//   whales: ProtocolWhale[];
+// }
+
 interface ProtocolWhale {
   protocolAddress: string;
   amount: number; // number of tokens held
@@ -8,8 +16,9 @@ interface ProtocolWhale {
 
 interface TokenHeld {
   tokenAddress: string;
-  symbol: string;
+  symbol: Symbol;
   amount: number;
+  value: number;
   account: string;
   tokenRatio: number; // value of token held as a percentage of total value of all tokens held
 }
@@ -35,4 +44,4 @@ interface Protocol {
 }
 
 // Export the interfaces
-export type { ProtocolWhale, TokenHeld, Protocol };
+export type { ProtocolWhale, TokenHeld, Protocol, Symbol };
