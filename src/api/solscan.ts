@@ -1,4 +1,4 @@
-import { Whale } from "../models/whaleModels";
+import { ProtocolWhale } from "../models/whaleModels";
 import { handleError } from "../utils/handleError";
 import { getRequest } from "../utils/httpMethods";
 
@@ -10,7 +10,7 @@ export interface TokenHolders {
   rank: number;
 }
 
-interface AccountToken {
+export interface AccountToken {
   tokenAddress: string;
   tokenAmount: {
     amount: string;

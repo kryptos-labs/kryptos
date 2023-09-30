@@ -1,21 +1,25 @@
-interface Whale {
+interface ProtocolWhale {
   protocolAddress: string;
-  amount: number;
-
-  tokenHeld: string;
+  amount: number; // number of tokens held
+  tokensHeld: TokenHeld[]; // // list of tokens held my owner wallet
+  owner: string; // owner wallet address
+  supplyRatio: number; // percentage of total supply held
 }
 
 interface TokenHeld {
   tokenAddress: string;
-  tokenAmount: TokenAmount;
+  symbol: string;
+  amount: number;
+  account: string;
+  tokenRatio: number; // value of token held as a percentage of total value of all tokens held
 }
 
-interface TokenAmount {
-  amount: string;
-  decimals: number;
-  uiAmount: number;
-  uiAmountString: string;
-}
+// interface TokenAmount {
+//   amount: string;
+//   decimals: number;
+//   uiAmount: number;
+//   uiAmountString: string;
+// }
 
 type DeFiCategory =
   | "Lending/Borrowing"
@@ -31,4 +35,4 @@ interface Protocol {
 }
 
 // Export the interfaces
-export type { Whale, TokenHeld, TokenAmount, Protocol };
+export type { ProtocolWhale, TokenHeld, Protocol };
