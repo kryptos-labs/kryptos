@@ -18,7 +18,7 @@ export async function getWhalesByProtocol(
   let whales: ProtocolWhale[] = [];
 
   const limit = 1;
-  const offset = 0;
+  const offset = 15;
   try {
     // Get the protocol address
     let address = ProtocolInfo[symbol].address;
@@ -68,6 +68,9 @@ export async function getWhalesByProtocol(
           throw new Error("Token price not found");
         }
 
+        if (token.tokenAmount.uiAmount === 0) {
+          continue;
+        }
         let tokenPrice = tokenHeldMetaData.price;
 
         let tokenValue = token.tokenAmount.uiAmount * tokenPrice;
@@ -80,21 +83,19 @@ export async function getWhalesByProtocol(
           amount: token.tokenAmount.uiAmount,
           account: token.tokenAccount,
           value: tokenValue,
-          tokenRatio: 0,
+          portfolioRatio: 0,
         };
         ownerTokens.push(ownerToken);
       }
 
       // Calculate the token ratio for each token held by the whale
       for (let token of ownerTokens) {
-        token.tokenRatio = (token.value / walletTotalValue) * 100;
-
-        console.log(token.tokenRatio);
+        token.portfolioRatio = (token.value / walletTotalValue) * 100;
 
         // assign the token ration to ownerTokens
         ownerTokens = ownerTokens.map((ownerToken) => {
           if (ownerToken.symbol === token.symbol) {
-            ownerToken.tokenRatio = token.tokenRatio;
+            ownerToken.portfolioRatio = token.portfolioRatio;
           }
           return ownerToken;
         });

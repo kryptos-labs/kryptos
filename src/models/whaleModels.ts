@@ -20,7 +20,7 @@ interface TokenHeld {
   amount: number;
   value: number;
   account: string;
-  tokenRatio: number; // value of token held as a percentage of total value of all tokens held
+  portfolioRatio: number; // value of token held as a percentage of total value of all tokens held
 }
 
 // interface TokenAmount {
