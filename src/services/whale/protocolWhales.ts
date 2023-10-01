@@ -18,7 +18,7 @@ export async function getWhalesByProtocol(
   let whales: ProtocolWhale[] = [];
 
   const limit = 1;
-  const offset = 19;
+  const offset = 0;
   try {
     // Get the protocol address
     let address = ProtocolInfo[symbol].address;
@@ -36,6 +36,7 @@ export async function getWhalesByProtocol(
       offset
     );
 
+    // console.log(largestHolders);
     // list of tokenMeta for each token held by the whale mapped to symbol
     let tokenMetaMap: Map<string, TokenMeta> = new Map();
 
@@ -57,11 +58,13 @@ export async function getWhalesByProtocol(
         }
 
         if (tokenHeldMetaData === undefined) {
+          continue;
           throw new Error("Token metadata not found");
         }
 
         if (tokenHeldMetaData.price === undefined) {
-          console.log(tokenHeldMetaData);
+          // console.log(tokenHeldMetaData);
+          continue;
           throw new Error("Token price not found");
         }
 
@@ -91,14 +94,14 @@ export async function getWhalesByProtocol(
         }
 
         if (tokenHeldMetaData === undefined) {
+          continue;
           throw new Error("Token metadata not found");
         }
 
         if (tokenHeldMetaData.price === undefined) {
+          continue;
           throw new Error("Token price not found");
         }
-
-        let tokenPrice = tokenHeldMetaData.price;
 
         token.tokenRatio = (token.value / walletTotalValue) * 100;
 
@@ -143,7 +146,12 @@ export async function getAllWhales(): Promise<
       handleError(error);
       throw error;
     }
+    if (symbol === "RAY") {
+      break;
+    }
   }
+
+  console.log(allWhales);
 
   return allWhales;
 }

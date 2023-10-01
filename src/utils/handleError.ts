@@ -16,14 +16,14 @@ export function handleError(error: any): void {
     throw error;
     // Handle the error response as needed
   } else {
-    // throw new CustomError(
-    //   error.message,
-    //   getCurrentFileName(error),
-    //   getCurrentLineNumber(error)
-    // );
+    throw new CustomError(
+      error.message,
+      getCurrentFileName(error),
+      getCurrentLineNumber(error)
+    );
 
     //print  line number and message
-    console.log(getCurrentLineNumber(error) + " " + error.message);
+    // console.log(getCurrentLineNumber(error) + " " + error.message);
   }
 }
 

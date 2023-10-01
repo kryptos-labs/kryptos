@@ -70,27 +70,24 @@ export async function getLargestHolders(
     );
     largestHolders = response.data;
   } catch (error: any) {
-    handleError(new Error(error.message));
+    // handleError(Error)
+    throw error;
   }
 
   return largestHolders;
 }
 
-export async function getTokenMeta(
-  address: string
-): Promise<TokenMeta | undefined> {
+export async function getTokenMeta(address: string): Promise<TokenMeta> {
   let params: Record<string, any> = {
     tokenAddress: address,
   };
 
-  let tokenMeta: TokenMeta | undefined = undefined;
-
   try {
-    tokenMeta = await getRequest(solscanAPI.tokenMeta, params);
+    return await getRequest(solscanAPI.tokenMeta, params);
   } catch (error: any) {
-    handleError(error);
+    // handleError(error);
+    throw error;
   }
-  return tokenMeta;
 }
 
 export async function getAccountTokens(owner: string): Promise<AccountToken[]> {
@@ -101,7 +98,7 @@ export async function getAccountTokens(owner: string): Promise<AccountToken[]> {
   try {
     return await getRequest(solscanAPI.accountTokens, params);
   } catch (error: any) {
-    handleError(error);
+    // handleError(error);
     throw error;
   }
 }

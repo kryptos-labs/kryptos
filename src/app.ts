@@ -1,7 +1,6 @@
 // src/app.ts
 import express from "express";
 import whalesRoutes from "./requests/routes/whaleRoutes";
-import { getRequest } from "./utils/httpMethods";
 
 const app = express();
 const port = process.env.PORT || 3000;
