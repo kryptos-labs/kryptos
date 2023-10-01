@@ -87,23 +87,6 @@ export async function getWhalesByProtocol(
 
       // Calculate the token ratio for each token held by the whale
       for (let token of ownerTokens) {
-        // let tokenHeldMetaData: TokenMeta | undefined = undefined;
-        // if (!tokenMetaMap.has(token.symbol)) {
-        //   tokenHeldMetaData = await getTokenMeta(token.tokenAddress);
-        //   tokenMetaMap.set(token.symbol, tokenHeldMetaData);
-        // }
-
-        // if (tokenHeldMetaData === undefined) {
-        //   continue;
-        //   throw new Error("Token metadata not found");
-        // }
-        // console.log("words");
-
-        // if (tokenHeldMetaData.price === undefined) {
-        //   continue;
-        //   throw new Error("Token price not found");
-        // }
-
         token.tokenRatio = (token.value / walletTotalValue) * 100;
 
         console.log(token.tokenRatio);
