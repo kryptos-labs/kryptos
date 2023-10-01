@@ -87,23 +87,26 @@ export async function getWhalesByProtocol(
 
       // Calculate the token ratio for each token held by the whale
       for (let token of ownerTokens) {
-        let tokenHeldMetaData: TokenMeta | undefined = undefined;
-        if (!tokenMetaMap.has(token.symbol)) {
-          tokenHeldMetaData = await getTokenMeta(token.tokenAddress);
-          tokenMetaMap.set(token.symbol, tokenHeldMetaData);
-        }
+        // let tokenHeldMetaData: TokenMeta | undefined = undefined;
+        // if (!tokenMetaMap.has(token.symbol)) {
+        //   tokenHeldMetaData = await getTokenMeta(token.tokenAddress);
+        //   tokenMetaMap.set(token.symbol, tokenHeldMetaData);
+        // }
 
-        if (tokenHeldMetaData === undefined) {
-          continue;
-          throw new Error("Token metadata not found");
-        }
+        // if (tokenHeldMetaData === undefined) {
+        //   continue;
+        //   throw new Error("Token metadata not found");
+        // }
+        // console.log("words");
 
-        if (tokenHeldMetaData.price === undefined) {
-          continue;
-          throw new Error("Token price not found");
-        }
+        // if (tokenHeldMetaData.price === undefined) {
+        //   continue;
+        //   throw new Error("Token price not found");
+        // }
 
         token.tokenRatio = (token.value / walletTotalValue) * 100;
+
+        console.log(token.tokenRatio);
 
         // assign the token ration to ownerTokens
         ownerTokens = ownerTokens.map((ownerToken) => {
@@ -133,25 +136,23 @@ export async function getWhalesByProtocol(
 }
 
 export async function getAllWhales(): Promise<
-  Map<string, ProtocolWhale[]> | undefined
+  Record<Symbol, ProtocolWhale[]> | undefined
 > {
-  let allWhales: Map<string, ProtocolWhale[]> = new Map();
+  let allWhales: Record<Symbol, ProtocolWhale[]> = {};
 
   for (let symbol in ProtocolInfo) {
     try {
       let whales: ProtocolWhale[] = await getWhalesByProtocol(symbol);
 
-      allWhales.set(symbol, whales);
+      allWhales[symbol] = whales;
     } catch (error) {
       handleError(error);
       throw error;
     }
-    if (symbol === "RAY") {
+    if (symbol === "SLND") {
       break;
     }
   }
-
-  console.log(allWhales);
 
   return allWhales;
 }
