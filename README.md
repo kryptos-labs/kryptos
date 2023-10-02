@@ -1,4 +1,4 @@
-# Kyrptos
+# Kryptos
 
 #### Dashboard
 
