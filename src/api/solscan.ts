@@ -71,7 +71,7 @@ export async function getLargestHolders(
     largestHolders = response.data;
   } catch (error: any) {
     // handleError(Error)
-    throw error;
+    throw new Error("Largest holders fetch error. Defi address: " + address);
   }
 
   return largestHolders;
@@ -86,7 +86,7 @@ export async function getTokenMeta(address: string): Promise<TokenMeta> {
     return await getRequest(solscanAPI.tokenMeta, params);
   } catch (error: any) {
     // handleError(error);
-    throw error;
+    throw new Error("Token metadata fetch error. Token address: " + address);
   }
 }
 
@@ -99,6 +99,6 @@ export async function getAccountTokens(owner: string): Promise<AccountToken[]> {
     return await getRequest(solscanAPI.accountTokens, params);
   } catch (error: any) {
     // handleError(error);
-    throw error;
+    throw new Error("Account tokens fetch error. Owner address: " + owner);
   }
 }

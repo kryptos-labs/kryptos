@@ -26,7 +26,7 @@ export async function getWhalesByProtocol(
       handleError(new Error("Protocol address not found"));
     }
 
-    // Get the token metadata
+    // Get the token metadata of the current Defi protocol
     let tokenMetaData: TokenMeta = await getTokenMeta(address);
 
     // Get the largest holders of the protocol token
@@ -36,8 +36,7 @@ export async function getWhalesByProtocol(
       offset
     );
 
-    // console.log(largestHolders);
-    // list of tokenMeta for each token held by the whale mapped to symbol
+    // (caching tokenMeta) list of tokenMeta for each token held by the whale mapped to symbol
     let tokenMetaMap: Map<string, TokenMeta> = new Map();
 
     for (let holder of largestHolders) {
