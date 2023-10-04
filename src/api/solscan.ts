@@ -86,6 +86,7 @@ export async function getTokenMeta(address: string): Promise<TokenMeta> {
     return await getRequest(solscanAPI.tokenMeta, params);
   } catch (error: any) {
     // handleError(error);
+    console.log(error);
     throw new Error("Token metadata fetch error. Token address: " + address);
   }
 }

@@ -132,7 +132,7 @@ export async function getAllWhales(): Promise<
       handleError(error);
       throw error;
     }
-    if (symbol === "SLND") {
+    if (symbol === "JET") {
       break;
     }
   }
