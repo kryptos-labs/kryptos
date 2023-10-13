@@ -15,6 +15,7 @@ export async function getRequest<T>(
     const response: AxiosResponse<T> = await axios.get(api, { params });
     return response.data;
   } catch (error: any) {
+    console.log(error);
     throw new Error(`Error from getRequest function for ${api}`);
   }
 
