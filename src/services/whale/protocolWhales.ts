@@ -8,6 +8,7 @@ import {
   AccountToken,
   TokenMeta,
 } from "../../api/solscan";
+import { test } from "../../api/solana_rpc";
 import { handleError } from "../../utils/handleError";
 import { tokenTotalSupply } from "./metrics";
 import { Token } from "typescript";
@@ -20,6 +21,7 @@ export async function getWhalesByProtocol(
   const limit = 1;
   const offset = 15;
   try {
+    test();
     // Get the protocol address
     let address = ProtocolInfo[symbol].address;
     if (address === undefined) {
