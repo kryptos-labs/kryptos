@@ -8,7 +8,8 @@ import {
   AccountToken,
   TokenMeta,
 } from "../../api/solscan";
-import { test } from "../../api/solana_rpc";
+import { PublicKey } from "@solana/web3.js";
+import { getTopHolders } from "../../api/solana_rpc";
 import { handleError } from "../../utils/handleError";
 import { tokenTotalSupply } from "./metrics";
 import { Token } from "typescript";
@@ -19,14 +20,17 @@ export async function getWhalesByProtocol(
   let whales: ProtocolWhale[] = [];
 
   const limit = 1;
+
   const offset = 15;
+
   try {
-    test();
-    // Get the protocol address
     let address = ProtocolInfo[symbol].address;
     if (address === undefined) {
       handleError(new Error("Protocol address not found"));
     }
+    getTopHolders(new PublicKey(address));
+
+    // Get the protocol address
 
     // Get the token metadata of the current Defi protocol
     let tokenMetaData: TokenMeta = await getTokenMeta(address);
