@@ -14,6 +14,7 @@ import { getTopHolders } from "../../api/solana_rpc";
 import { handleError } from "../../utils/handleError";
 import { tokenTotalSupply } from "./metrics";
 import { Token } from "typescript";
+import { test } from "../../api/helius";
 
 export async function getWhalesByProtocol(
   symbol: string
@@ -30,9 +31,7 @@ export async function getWhalesByProtocol(
       handleError(new Error("Protocol address not found"));
     }
 
-    getTopHolders(
-      new PublicKey("EsLAEeKA1dUJRiPpbTAm7r94KqGDAKe1ivH8PLAAuSxV")
-    );
+    test();
   } catch (error) {
     console.log(error);
   }
