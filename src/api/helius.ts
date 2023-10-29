@@ -1,23 +1,16 @@
 import * as dotenv from "dotenv";
+import { Connection, PublicKey } from "@solana/web3.js";
 dotenv.config();
 
-export async function test() {
-  const url = `https://api.helius.xyz/v0/token-metadata?api-key=${process.env.HELIUS_KEY}`;
+export async function getLargestHolders(pubkey: PublicKey) {
+  const url = `https://mainnet.helius-rpc.com/?api-key=${process.env.HELIUS_KEY}`;
 
-  console.log(url);
-  const nftAddresses = ["SLNDpmoWTVADgEdndyvWzroNL7zSi1dF9PC3xHGtPwp"];
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      mintAccounts: nftAddresses,
-      includeOffChain: true,
-      disableCache: false,
-    }),
-  });
+  const connection = new Connection(url, "confirmed");
 
-  const data = await response.json();
-  console.log("metadata: ", data);
+  const response = await connection.getTokenLargestAccounts(
+    new PublicKey(pubkey),
+    "confirmed"
+  );
+
+  console.log("metadata: ", response);
 }

@@ -13,10 +13,10 @@ export async function getTopHolders(publicKey: PublicKey) {
 
     const tokenAccounts = await connection.getTokenAccountsByOwner(
       mintAddress,
-      { mint: new PublicKey("SLNDpmoWTVADgEdndyvWzroNL7zSi1dF9PC3xHGtPwp") }
+      { mint: new PublicKey("v36Pdq4kjUhrUBnYzZLa4HReBXpyVRCwxQ9Bkk2i8YC") }
     );
 
-    console.log(tokenAccounts);
+    console.log(tokenAccounts.value);
   } catch (e) {
     console.log(e);
   }
