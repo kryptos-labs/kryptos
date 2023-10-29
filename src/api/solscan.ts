@@ -2,7 +2,7 @@ import { ProtocolWhale } from "../models/whaleModels";
 import { handleError } from "../utils/handleError";
 import { getRequest } from "../utils/httpMethods";
 
-export interface TokenHolders {
+interface TokenHolders {
   address: string;
   amount: number;
   decimals: number;
@@ -10,7 +10,7 @@ export interface TokenHolders {
   rank: number;
 }
 
-export interface AccountToken {
+interface AccountToken {
   tokenAddress: string;
   tokenAmount: {
     amount: string;
@@ -31,7 +31,7 @@ interface LargestHoldersResponse {
   total: number;
 }
 
-export interface TokenMeta {
+interface TokenMeta {
   name: string;
   symbol: string;
   price: number;
@@ -50,7 +50,7 @@ const solscanAPI = {
   tokenMeta: "https://public-api.solscan.io/token/meta?",
 };
 
-export async function getLargestHolders(
+async function getLargestHolders(
   address: string,
   limit: number,
   offset: number
@@ -77,7 +77,7 @@ export async function getLargestHolders(
   return largestHolders;
 }
 
-export async function getTokenMeta(address: string): Promise<TokenMeta> {
+async function getTokenMeta(address: string): Promise<TokenMeta> {
   let params: Record<string, any> = {
     tokenAddress: address,
   };
@@ -91,7 +91,7 @@ export async function getTokenMeta(address: string): Promise<TokenMeta> {
   }
 }
 
-export async function getAccountTokens(owner: string): Promise<AccountToken[]> {
+async function getAccountTokens(owner: string): Promise<AccountToken[]> {
   let params: Record<string, any> = {
     account: owner,
   };

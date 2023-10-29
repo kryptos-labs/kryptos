@@ -8,7 +8,7 @@ export async function getLargestHolders(pubkey: PublicKey) {
   const connection = new Connection(url, "confirmed");
 
   const response = await connection.getTokenLargestAccounts(
-    new PublicKey(pubkey),
+    pubkey,
     "confirmed"
   );
 

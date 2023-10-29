@@ -7,16 +7,12 @@ const connection = new Connection(clusterApiUrl("mainnet-beta"));
 
 export async function getTopHolders(publicKey: PublicKey) {
   try {
-    const mintAddress = new PublicKey(
-      "SLNDpmoWTVADgEdndyvWzroNL7zSi1dF9PC3xHGtPwp"
+    const tokenAccounts = await connection.getTokenLargestAccounts(
+      publicKey,
+      "confirmed"
     );
 
-    const tokenAccounts = await connection.getTokenAccountsByOwner(
-      mintAddress,
-      { mint: new PublicKey("v36Pdq4kjUhrUBnYzZLa4HReBXpyVRCwxQ9Bkk2i8YC") }
-    );
-
-    console.log(tokenAccounts.value);
+    console.log(tokenAccounts);
   } catch (e) {
     console.log(e);
   }

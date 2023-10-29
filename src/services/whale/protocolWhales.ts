@@ -3,7 +3,6 @@ import { ProtocolWhale, Symbol, TokenHeld } from "../../models/whaleModels";
 import { ProtocolInfo } from "../../constants/protocols";
 import {
   getAccountTokens,
-  getLargestHolders,
   getTokenMeta,
   TokenHolders,
   AccountToken,
@@ -14,7 +13,7 @@ import { getTopHolders } from "../../api/solana_rpc";
 import { handleError } from "../../utils/handleError";
 import { tokenTotalSupply } from "./metrics";
 import { Token } from "typescript";
-import { test } from "../../api/helius";
+import { getLargestHolders } from "../../api/helius";
 
 export async function getWhalesByProtocol(
   symbol: string
@@ -31,7 +30,9 @@ export async function getWhalesByProtocol(
       handleError(new Error("Protocol address not found"));
     }
 
-    test();
+    let protocolPublicKey = new PublicKey(address);
+
+    getLargestHolders(protocolPublicKey);
   } catch (error) {
     console.log(error);
   }
