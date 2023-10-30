@@ -1,19 +1,12 @@
 import { ProtocolWhale, Symbol, TokenHeld } from "../../models/whaleModels";
 
 import { ProtocolInfo } from "../../constants/protocols";
-import {
-  getAccountTokens,
-  getTokenMeta,
-  TokenHolders,
-  AccountToken,
-  TokenMeta,
-} from "../../api/solscan";
 import { Connection, PublicKey } from "@solana/web3.js";
 import { getTopHolders } from "../../api/solana_rpc";
 import { handleError } from "../../utils/handleError";
 import { tokenTotalSupply } from "./metrics";
 import { Token } from "typescript";
-import { getLargestHolders } from "../../api/helius";
+import { getAllAccounts, getLargestHolders } from "../../api/helius";
 
 export async function getWhalesByProtocol(
   symbol: string
@@ -32,6 +25,7 @@ export async function getWhalesByProtocol(
 
     let protocolPublicKey = new PublicKey(address);
 
+    // getLargestHolders(protocolPublicKey);
     getLargestHolders(protocolPublicKey);
   } catch (error) {
     console.log(error);
