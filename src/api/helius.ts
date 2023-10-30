@@ -43,7 +43,7 @@ export async function getAllAccounts(pubkey: PublicKey) {
 export async function getAccountTokens(pubkey: PublicKey) {
   //filter
   const filter: TokenAccountsFilter = {
-    mint: pubkey,
+    mint: pubkey.toBase58(),
   };
 
   let accountTokens = await connection.getTokenAccountsByOwner(pubkey, filter);
