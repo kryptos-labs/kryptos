@@ -13,14 +13,18 @@ const url = `https://mainnet.helius-rpc.com/?api-key=${process.env.HELIUS_KEY}`;
 const connection = new Connection(url, "confirmed");
 
 export async function getLargestHolders(pubkey: PublicKey) {
-  const response = await connection.getTokenLargestAccounts(
-    pubkey,
-    "confirmed"
-  );
+  try {
+    const response = await connection.getTokenLargestAccounts(
+      pubkey,
+      "confirmed"
+    );
 
-  for (const account of response.value) {
-    await getAccountTokens(account.address);
-    break;
+    for (const account of response.value) {
+      await getAccountTokens(account.address);
+      break;
+    }
+  } catch (error) {
+    console.log(error);
   }
 }
 
@@ -43,10 +47,12 @@ export async function getAllAccounts(pubkey: PublicKey) {
 export async function getAccountTokens(pubkey: PublicKey) {
   //filter
   const filter: TokenAccountsFilter = {
-    mint: pubkey.toBase58(),
+    programId: new PublicKey("So1endDq2YkqhipRh3WViPa8hdiSpxWy6z3Z6tMCpAo"),
   };
 
-  let accountTokens = await connection.getTokenAccountsByOwner(pubkey, filter);
+  let accountTokens = await connection.getProgramAccounts(
+    new PublicKey("So1endDq2YkqhipRh3WViPa8hdiSpxWy6z3Z6tMCpAo")
+  );
 
   console.log(accountTokens);
 }
