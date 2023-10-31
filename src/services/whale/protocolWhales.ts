@@ -6,7 +6,7 @@ import { getTopHolders } from "../../api/solana_rpc";
 import { handleError } from "../../utils/handleError";
 import { tokenTotalSupply } from "./metrics";
 import { Token } from "typescript";
-import { getAllAccounts, getLargestHolders } from "../../api/helius";
+import { getLargestHolders } from "../../api/helius";
 
 export async function getWhalesByProtocol(
   symbol: string

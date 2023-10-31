@@ -20,7 +20,7 @@ export async function getLargestHolders(pubkey: PublicKey) {
     );
 
     for (const account of response.value) {
-      await getAccountTokens(account.address);
+      await getProgramAccounts(account.address);
       break;
     }
   } catch (error) {
@@ -28,17 +28,15 @@ export async function getLargestHolders(pubkey: PublicKey) {
   }
 }
 
-export async function getAllAccounts(pubkey: PublicKey) {
+export async function getProgramAccounts(pubkey: PublicKey) {
   try {
     const accounts = await connection.getProgramAccounts(
-      new PublicKey("TokenkegQfeZyiwj5kMgpg55BH5nAnbhjN49HWN6AdT")
+      new PublicKey("So1endDq2YkqhipRh3WViPa8hdiSpxWy6z3Z6tMCpAo")
     );
 
     for (const account of accounts) {
       console.log(account);
     }
-
-    console.log(accounts);
   } catch (error) {
     console.log(error);
   }
