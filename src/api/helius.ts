@@ -20,7 +20,9 @@ export async function getLargestHolders(pubkey: PublicKey) {
     );
 
     for (const account of response.value) {
-      await getProgramAccounts(account.address);
+      await getAccountTokens(
+        new PublicKey("v36Pdq4kjUhrUBnYzZLa4HReBXpyVRCwxQ9Bkk2i8YC")
+      );
       break;
     }
   } catch (error) {
@@ -43,14 +45,8 @@ export async function getProgramAccounts(pubkey: PublicKey) {
 }
 
 export async function getAccountTokens(pubkey: PublicKey) {
-  //filter
-  const filter: TokenAccountsFilter = {
-    programId: new PublicKey("So1endDq2YkqhipRh3WViPa8hdiSpxWy6z3Z6tMCpAo"),
-  };
-
-  let accountTokens = await connection.getProgramAccounts(
-    new PublicKey("So1endDq2YkqhipRh3WViPa8hdiSpxWy6z3Z6tMCpAo")
-  );
-
-  console.log(accountTokens);
+  try {
+  } catch (error) {
+    console.log(error);
+  }
 }
