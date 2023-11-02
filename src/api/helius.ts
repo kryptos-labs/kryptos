@@ -46,6 +46,26 @@ export async function getProgramAccounts(pubkey: PublicKey) {
 
 export async function getAccountTokens(pubkey: PublicKey) {
   try {
+    const MY_WALLET_ADDRESS = "v36Pdq4kjUhrUBnYzZLa4HReBXpyVRCwxQ9Bkk2i8YC";
+
+    const accounts = await connection.getParsedProgramAccounts(
+      new PublicKey("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"),
+      {
+        filters: [
+          {
+            dataSize: 165, // number of bytes
+          },
+          {
+            memcmp: {
+              offset: 32, // number of bytes
+              bytes: MY_WALLET_ADDRESS, // base58 encoded string
+            },
+          },
+        ],
+      }
+    );
+
+    console.log(accounts);
   } catch (error) {
     console.log(error);
   }
